@@ -1,3 +1,3 @@
 # Wordpress Theme for Odyssey
 
-This will be a child theme of Autonomie.
+Odyssey is a child theme of [Autonomie](https://github.com/pfefferle/Autonomie) for use at my website.
