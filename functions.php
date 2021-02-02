@@ -20,20 +20,20 @@ function autonomie_enqueue_scripts() {
         ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) &&
         ( false === strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE 9' ) ) ) {
 
-        wp_enqueue_script( '', get_template_directory_uri() . '/js/html5shiv.min.js', false, '3.7.3' );
+        wp_enqueue_script( '', get_template_directory_uri() . '/assets/js/html5shiv.min.js', false, '3.7.3' );
     }
 
-    wp_enqueue_script( 'autonomie-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '1.0.0', true );
-    wp_enqueue_script( 'autonomie-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '1.0.0', true );
+    wp_enqueue_script( 'autonomie-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), '1.0.0', true );
+    wp_enqueue_script( 'autonomie-skip-link-focus-fix', get_template_directory_uri() . '/assets//js/skip-link-focus-fix.js', array(), '1.0.0', true );
 
     wp_enqueue_style( 'dashicons' );
 
     // Loads our main stylesheet.
     wp_enqueue_style( 'autonomie-style', get_template_directory_uri() . '/style.css', array( 'dashicons' ) );
-    wp_enqueue_style( 'autonomie-print-style', get_template_directory_uri() . '/css/print.css', array( 'autonomie-style' ), '1.0.0', 'print' );
-    wp_enqueue_style( 'autonomie-narrow-style', get_template_directory_uri() . '/css/narrow-width.css', array( 'autonomie-style' ), '1.0.0', '(max-width: 800px)' );
-    wp_enqueue_style( 'autonomie-default-style', get_template_directory_uri() . '/css/default-width.css', array( 'autonomie-style' ), '1.0.0', '(min-width: 800px)' );
-    wp_enqueue_style( 'autonomie-wide-style', get_template_directory_uri() . '/css/wide-width.css', array( 'autonomie-style' ), '1.0.0', '(min-width: 1000px)' );
+    wp_enqueue_style( 'autonomie-print-style', get_template_directory_uri() . '/assets/css/print.css', array( 'autonomie-style' ), '1.0.0', 'print' );
+    wp_enqueue_style( 'autonomie-narrow-style', get_template_directory_uri() . '/assets/css/narrow-width.css', array( 'autonomie-style' ), '1.0.0', '(max-width: 800px)' );
+    wp_enqueue_style( 'autonomie-default-style', get_template_directory_uri() . '/assets/css/default-width.css', array( 'autonomie-style' ), '1.0.0', '(min-width: 800px)' );
+    wp_enqueue_style( 'autonomie-wide-style', get_template_directory_uri() . '/assets/css/wide-width.css', array( 'autonomie-style' ), '1.0.0', '(min-width: 1000px)' );
     wp_enqueue_style( 'autonomie-child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( 'autonomie-style' ),
@@ -62,6 +62,12 @@ function autonomie_enqueue_scripts() {
         wp_add_inline_style( 'autonomie-style', $css );
     }
 }
+add_action( 'after_setup_theme', 'autonomie_child_after_setup_theme' );
+/**
+ * Re-enable the built-in Links manager
+ */
+add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
 
 function autonomie_child_after_setup_theme() {
     add_theme_support( 'soil-clean-up' );
@@ -70,7 +76,7 @@ function autonomie_child_after_setup_theme() {
     add_theme_support( 'soil-nav-walker' );
     add_theme_support( 'soil-nice-search' );
 
-
+   
 
 }
 add_action( 'after_setup_theme', 'autonomie_child_after_setup_theme' );
@@ -86,3 +92,17 @@ function autonomie_child_kinds_init() {
 	remove_filter( 'the_content', array( 'Kind_View', 'content_response' ), 9 );
 }
 add_action( 'init', 'autonomie_child_kinds_init' );
+
+
+
+function add_hum_shortlink() {
+    ?>
+    
+	<link rel="shortlink" href="<?php echo esc_url( wp_get_shortlink() ); ?>">
+    <?php
+}
+add_action('wp_head', 'add_hum_shortlink');
+
+
+
+
