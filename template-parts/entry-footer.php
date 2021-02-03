@@ -3,6 +3,8 @@
 		<?php dynamic_sidebar( 'entry-meta' ); ?>
 		<?php do_action( 'autonomie_entry_footer' ); ?>
 
+
+
 		<?php // get_template_part( 'template-parts/entry', 'nav' ); ?>
 	</footer><!-- #entry-meta -->
 <?php else : ?>
